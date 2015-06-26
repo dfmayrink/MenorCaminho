@@ -8,7 +8,6 @@ package menorcaminho;
 import java.util.List;
 
 import mongo.Customer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CustomerRepository extends MongoRepository<Customer, String> {
