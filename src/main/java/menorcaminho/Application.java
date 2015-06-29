@@ -2,18 +2,20 @@ package menorcaminho; /**
  * Created by MayrinDF on 26/06/2015.
  */
 
-import dijkstra.Dijkstra;
-import mongo.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
     @Autowired
-    private CustomerRepository repository;
+    private VertexRepository repository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -21,35 +23,25 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        /*
+            todo Melhoramento para versão 2.0 = criar um método para ser executado
+            somente uma vez, durante a instalação
+         */
         repository.deleteAll();
+        /*salva registros no banco*/
+        repository.save(Dijkstra.construirVertices());
 
-        // save a couple of customers
-        repository.save(new Customer("Alice", "Smith"));
-        repository.save(new Customer("Bob", "Smith"));
-
-        // fetch all customers
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (Customer customer : repository.findAll()) {
-            System.out.println(customer);
+        // Pega todos os registros do banco
+        System.out.println("Vertices achados com findAll():");
+        List<Vertice> todosVertices = repository.findAll();
+        for (Vertice vertex : todosVertices) {
+            System.out.println(vertex);
         }
-        System.out.println();
-
-        // fetch an individual customer
-        System.out.println("mongo.Customer found with findByFirstName('Alice'):");
-        System.out.println("--------------------------------");
-        System.out.println(repository.findByFirstName("Alice"));
-
-        System.out.println("Customers found with findByLastName('Smith'):");
-        System.out.println("--------------------------------");
-        for (Customer customer : repository.findByLastName("Smith")) {
-            System.out.println(customer);
-        }
-
         System.out.println("--------------------------------------");
 
-        Dijkstra.run();
+        Dijkstra.vertices = todosVertices;
+
+        System.out.println("--------------------------------------");
 
     }
 
