@@ -11,7 +11,7 @@ Instalando o projeto:
 
 mvn clean install
 
-Iniciar uma instância de mongodb, no windows seria o alvo "mongod.exe", que está dentro da <pasta_de_instalação_do_mongo>/bin.
+Iniciar uma instância de mongodb, no windows seria o alvo "mongod.exe", que está dentro da pasta_de_instalação_do_mongo/bin.
 
 Iniciando o projeto, executar o plugin "spring-boot" target run do maven:
 
